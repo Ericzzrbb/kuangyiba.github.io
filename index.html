@@ -1,5 +1,101 @@
 <!DOCTYPE html>
-<html>
-<head><title>My Site</title></head>
-<body><h1>Hello GitHub Pages</h1></body>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>猜球员 · 26-27 赛季</title>
+  <meta name="description" content="足球球员猜谜游戏：根据身高、国籍、俱乐部、惯用脚、位置、类型（现役/历史）的提示，13 回合内猜出随机的球员。中英双语。" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚽</text></svg>" />
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div class="hero-main">
+        <h1><span id="title-a">猜</span> <span class="accent" id="title-b">球员</span></h1>
+        <p id="tagline"></p>
+      </div>
+      <div class="hero-side">
+        <div class="lang-switch" role="group" aria-label="Language / 语言">
+          <button type="button" class="lang-btn" data-lang="zh">中文</button>
+          <button type="button" class="lang-btn" data-lang="en">EN</button>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><b id="stat-plays">0</b><span id="stat-plays-label"></span></div>
+          <div class="stat"><b id="stat-wins">0</b><span id="stat-wins-label"></span></div>
+          <div class="stat"><b id="stat-best">—</b><span id="stat-best-label"></span></div>
+        </div>
+      </div>
+    </header>
+
+    <section class="panel">
+      <form class="guess-form" id="guess-form" autocomplete="off">
+        <div class="input-wrap">
+          <input
+            id="guess-input"
+            type="text"
+            aria-label="输入球员名字 / player name"
+            aria-autocomplete="list"
+            aria-controls="suggest"
+            enterkeyhint="send"
+            autocapitalize="off"
+            spellcheck="false"
+          />
+          <ul class="suggest" id="suggest" role="listbox" aria-label="候选球员" hidden></ul>
+        </div>
+        <button class="btn" id="guess-submit" type="submit">确认猜测</button>
+      </form>
+
+      <div class="bar">
+        <span class="pill" id="counter">还没有猜过</span>
+        <span id="hint" role="status" aria-live="polite"></span>
+      </div>
+
+      <div class="actions">
+        <button class="btn ghost" id="hint-btn" type="button">获取提示</button>
+        <button class="btn ghost" id="reveal" type="button">看答案</button>
+        <button class="btn ghost" id="new-game" type="button">重新开局</button>
+      </div>
+
+      <div class="hints-box" id="hints-box" hidden>
+        <span class="hints-title" id="hints-title"></span>
+        <ul class="hint-chips" id="hint-chips"></ul>
+      </div>
+
+      <div id="loading">正在加载球员数据…</div>
+      <div id="fatal" hidden></div>
+      <div id="banner" class="banner" hidden></div>
+    </section>
+
+    <section class="table-wrap" aria-live="polite">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col" id="th-player">球员</th>
+            <th scope="col" id="th-height">身高</th>
+            <th scope="col" id="th-nation">国籍</th>
+            <th scope="col" id="th-club">俱乐部</th>
+            <th scope="col" id="th-foot">惯用脚</th>
+            <th scope="col" id="th-position">位置</th>
+            <th scope="col" id="th-type">类型</th>
+          </tr>
+        </thead>
+        <tbody id="guess-rows"></tbody>
+      </table>
+      <p class="empty-hint" id="empty-hint"></p>
+    </section>
+
+    <details class="rules">
+      <summary id="rules-summary">判定规则与玩法</summary>
+      <ul id="rules-list"></ul>
+    </details>
+
+    <footer><span id="footer-text"></span></footer>
+  </main>
+
+  <script src="assets/data-tables.js"></script>
+  <script src="assets/i18n.js"></script>
+  <script src="assets/game-logic.js"></script>
+  <script src="assets/app.js"></script>
+</body>
 </html>
